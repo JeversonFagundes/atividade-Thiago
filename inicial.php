@@ -32,8 +32,8 @@ $pasta = "foto/";
         .div2 {
             border-radius: 10px;
             position: absolute;
-            height: 100px;
-            width: 100px;
+            height: 10%;
+            width: 5%;
             border: 1px black solid;
             top: 40px;
             left: 30px;
@@ -50,9 +50,10 @@ $pasta = "foto/";
             top:20%;
         }
         .bbbb{
-            position: absolute;
+            position: relative;
+            margin: auto;
             left:10%;
-            top:20px;
+            top:1%;
         }
     </style>
 </head>
