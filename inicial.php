@@ -9,11 +9,11 @@ require_once "conecta.php";
 //variavel de conexão.
 $mysql = conectar();
 
-$sql = "SELECT user.foto_perfil FROM usuario user WHERE id_usuario = " . $_SESSION['usuario'][1];
+$sql = "SELECT * FROM usuario user WHERE id_usuario = " . $_SESSION['usuario'][1];
 
 $query = excutarSQL($mysql, $sql);
 
-$foto = mysqli_fetch_assoc($query);
+$usuario = mysqli_fetch_assoc($query);
 
 $pasta = "foto/";
 
@@ -28,12 +28,8 @@ $pasta = "foto/";
     <title>Document</title>
 
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
 
-        div {
+        .div2 {
             border-radius: 10px;
             position: absolute;
             height: 100px;
@@ -49,69 +45,51 @@ $pasta = "foto/";
             width: 100%;
             height: 100%;
         }
-
-        h1 {
+        .form{
             position: absolute;
-            top: 150px;
-            left: 20px;
+            top:20%;
         }
-
-        h2 {
+        .bbbb{
             position: absolute;
-            top: 200px;
-            left: 20px;
-        }
-
-        p {
-            position: absolute;
-            top: 300px;
-        }
-
-        header {
-            position: absolute;
-            top: 13%;
-            left: 20%;
-            transform: translate(-50%, -50%);
-            border-bottom: 1px black solid;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        li {
-            display: inline;
-
-        }
-
-        .li1 {
-            margin-right: 50px;
-        }
-
-        a {
-            font-size: 20px;
-            text-decoration: none;
+            left:10%;
+            top:20px;
         }
     </style>
 </head>
 
-<body class="body">
+<body>
 
-    <header>
-        <nav>
-            <ul>
-                <li class="li1"><a href="crud/">Perfil</a></li>
-                <li><a href="logout.php">Sair</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div>
-        <img src="<?php echo $pasta . $foto['foto_perfil']; ?>" alt="foto de perfil do usuario.">
+
+<?php
+
+
+
+?>
+
+<div class="div2">
+        <img src="<?php echo $pasta . $usuario['foto_perfil']; ?>" alt="foto de perfil do usuario.">
     </div>
 
+
+  
+    <div class="bbbb">
     <h1>Bem vindo!</h1>
 
     <h2><?php echo $_SESSION['usuario'][0]; ?></h2>
+    </div>
+
+    <form class="form" action="crud/alterarPerfil.php" method="post">
+
+        <label for="nome">Seu nome:</label>
+        <input type="text" name="nome" id="nome" value="<?php echo $usuario['nome']; ?>"><br><br>
+
+        <label for="email">Seu email:</label>
+        <input type="email" name="email" id="email" value="<?php echo $usuario['email']; ?>"><br><br>
+
+        <input type="submit" value="Alterar o seu perfil">
+
+
+    </form>
 
 
 </body>

@@ -8,5 +8,5 @@ $config = [
     'password' => '',
     'banco' => 'atividade_thiago',
     'email' => 'jeverson.2022311922@aluno.iffar.edu.br',
-    'senha_email' => 'ksmsmhxklpqwhave',
+    'senha_email' => 'tknxpjcsnfqurjbp',
 ];
