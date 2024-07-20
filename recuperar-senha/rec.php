@@ -24,7 +24,7 @@ $token = bin2hex(random_bytes(50));
 require_once 'PHPMailer/src/PHPMailer.php';
 require_once 'PHPMailer/src/SMTP.php';
 require_once 'PHPMailer/src/Exception.php';
-include 'config.php';
+include "config.php";
 
 
 $mail = new PHPMailer(true);
