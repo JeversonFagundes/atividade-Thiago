@@ -9,14 +9,13 @@ $conexao = conectar();
 
 $email = $_POST['email'];
 $sql = "SELECT * FROM usuario WHERE email='$email'";
-$result = mysqli_query($conexao, $sql);
-
+$result = executarSQL($conexao, $sql);
 $usuario = mysqli_fetch_assoc($result);
-    
-if($usuario == null){
-        echo "Email não cadatrado! Se cadastre e logo 
-        em seguida faça o login.";
-        die();
+
+if ($usuario == null) {
+    echo "Email não cadastrado! Faça o cadastro e 
+          em seguida realize o login.";
+    die();
 }
 
 $token = bin2hex(random_bytes(50));
@@ -24,67 +23,65 @@ $token = bin2hex(random_bytes(50));
 require_once 'PHPMailer/src/PHPMailer.php';
 require_once 'PHPMailer/src/SMTP.php';
 require_once 'PHPMailer/src/Exception.php';
-include "config.php";
-
+include '../config.php';
 
 $mail = new PHPMailer(true);
 
 try {
-     $mail->CharSet = 'UTF-8';
-     $mail->Encoding = 'base64';
-     $mail->setLanguage('br');
-     $mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens de erro
-     $mail->isSMTP();                       //envia o email usando SMTP
-     $mail->Host = 'smtp.gmail.com';        //Set the SMTP server to send through
-     $mail->SMTPAuth = true;                //Enable SMTP authentication
-     $mail->Username = $config['email'];    //SMTP username
-     $mail->Password = $config['senha_email']; //SMTP password
-     //Enable implicit TLS encryption
-     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-     /* TCP port to connect to; use 587 if you have set 
-     `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS` */
-     $mail->Port = 587;
-     $mail->SMTPOptions = array(
-         'ssl' => array(
-             'verify_peer' => false,
-             'verify_peer_name' => false,
-             'allow_self_signed' => true
-         )
-         );
+    // configurações
+    $mail->CharSet = 'UTF-8';
+    $mail->Encoding = 'base64';
+    $mail->setLanguage('br');
+    //$mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens de erro
+    //$mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens de erro
+    $mail->isSMTP();                       //envia o email usando SMTP
+    $mail->Host = 'smtp.gmail.com';       
+    $mail->SMTPAuth = true;               
+    $mail->Username = $config['email'];  
+    $mail->Password = $config['senha_email']; 
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    /* TCP port to connect to; use 587 if you have set 
+    `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS` */
+    $mail->Port = 587;
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
- $mail->setFrom($config['email'], 'Aula de Tópicos');
- $mail->addAddress($usuario['email'], $usuario['nome']);   
- $mail->addReplyTo($config['email'], 'Aula de Tópicos');
+    $mail->setFrom($config['email'], 'Recuperar sua conta');
+    $mail->addAddress($usuario['email'], $usuario['nome']);  
+    $mail->addReplyTo($config['email'], 'Recuperar sua conta');
 
+    $mail->isHTML(true);       
+    $mail->Subject = 'Recuperação de Senha do Sistema';
+    $mail->Body = 'Olá!<br>
+        Você solicitou a recuperação da sua conta no nosso sistema.
+        Para isso, clique no link abaixo para realizar a troca de senha:<br>
+        <a href="' . $_SERVER['SERVER_NAME'] . '/atividade-Thiago/recuperar-senha/nova-senha?email=' . $usuario['email'] .
+        '&token=' . $token . 
+        '">Clique aqui para recuperar o acesso à sua conta!</a><br>
+        <br>
+        Atenciosamente<br>
+        Equipe do sistema...';
 
- $mail->isHTML(true);     
- $mail->Subject = 'Recuperação de Senha do Sistema';
- $mail->Body = 'Olá!<br>
-     Você solicitou a recuperação da sua conta no nosso sistema.
-     Para isso, clique no link abaixo para realizar a troca de senha:<br>
-     <a href="' . $_SERVER['SERVER_NAME'] . '/recuperar-senha/nova-senha.php?email=' . $usuario['email'] .
-     '&token=' . $token . 
-     '">Clique aqui para recuperar o acesso à sua conta!</a><br>
-     <br>
-     Atenciosamente<br>
-     Equipe do sistema...';
+    $mail->send();
+    echo 'Email enviado com sucesso!<br>Confira o seu email.' . '<br>';
+    echo "<a href='../index.php'>Clique aqui para voltar para a pagina de login</a>";
 
- $mail->send();
- echo 'Email enviado com sucesso!<br>Confira o seu email.';
- echo "<a href='index.php'>Voltar para pagina inicial";
+    // Gravar as informações na tabela recuperar senha
+    date_default_timezone_set('America/Sao_Paulo');
+    $data = new DateTime('now');
+    $agora = $data->format('Y-m-d H:i:s');
 
- // Gravar as informações na tabela recuperar senha
- date_default_timezone_set('America/Sao_Paulo');
- $data = new DateTime('now');
- $agora = $data->format('Y-m-d H:i:s');
-
- $sql2 = "INSERT INTO `recuperar-senha`
-         (email, token, data_criacao, usado) 
-         VALUES ('". $usuario['email'] . "', '$token', 
-         '$agora', 0)";
- executarSQL($conexao, $sql2);
+    $sql2 = "INSERT INTO `recuperar-senha`
+            (email, token, data_criacao, usado) 
+            VALUES ('". $usuario['email'] . "', '$token', 
+            '$agora', 0)";
+    executarSQL($conexao, $sql2);
 } catch (Exception $e) {
- echo "Não foi possível enviar o email. 
-       Mailer Error: {$mail->ErrorInfo}";
+    echo "Não foi possível enviar o email. 
+          Mailer Error: {$mail->ErrorInfo}";
 }
-?>

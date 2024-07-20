@@ -14,7 +14,7 @@ $email = $_POST['email'];
 $senha = $_POST['senha'];
 
 //verificar se o email existe no banco de dados.
-$consulta_usuario = excutarSQL($mysql, "SELECT COUNT(*) FROM usuario WHERE email = '$email'");
+$consulta_usuario = executarSQL($mysql, "SELECT COUNT(*) FROM usuario WHERE email = '$email'");
 $quantidade_usuario = mysqli_fetch_row($consulta_usuario)[0];
 
 if ($quantidade_usuario ==0) {
@@ -25,7 +25,7 @@ if ($quantidade_usuario ==0) {
 }else {
     
     $sql = "SELECT * FROM usuario WHERE email = '$email'";
-    $query = excutarSQL($mysql, $sql);
+    $query = executarSQL($mysql, $sql);
 
     $usuario = mysqli_fetch_assoc($query);
 

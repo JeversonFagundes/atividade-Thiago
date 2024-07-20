@@ -11,7 +11,7 @@ $mysql = conectar();
 
 $sql = "SELECT * FROM usuario user WHERE id_usuario = " . $_SESSION['usuario'][1];
 
-$query = excutarSQL($mysql, $sql);
+$query = executarSQL($mysql, $sql);
 
 $usuario = mysqli_fetch_assoc($query);
 

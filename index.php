@@ -22,7 +22,7 @@
 
         <input type="submit" value="Logar"><br>
 
-        <p><a href="#">Recuperar senha</a></p>
+        <p><a href="recuperar-senha/form-rec-senha.php">Recuperar senha</a></p>
         <p><a href="crud/formcadUsuario.html">Não possuo conta</a></p>
     </form>
 
