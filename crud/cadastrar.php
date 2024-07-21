@@ -13,7 +13,7 @@ $senha = $_POST['senha'];
 $icone = $_POST['icone'];
 
 //verificar se o email já está cadastrado no sistema.
-$consulta_usuario = excutarSQL($mysql, "SELECT COUNT(*) FROM usuario WHERE email = '$email'");
+$consulta_usuario = executarSQL($mysql, "SELECT COUNT(*) FROM usuario WHERE email = '$email'");
 $quantidade_usuario = mysqli_fetch_row($consulta_usuario)[0];
 
 if ($quantidade_usuario == 0) {
@@ -21,7 +21,7 @@ if ($quantidade_usuario == 0) {
     $sql = "INSERT INTO usuario (nome,email,senha,foto_perfil)
     VALUES ('$nome', '$email', '$senha','$icone')";
 
-    excutarSQL($mysql, $sql);
+    executarSQL($mysql, $sql);
 
     header("location:../index.php");
 } else {

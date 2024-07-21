@@ -17,7 +17,7 @@ $senha = $_POST['senha'];
 $consulta_usuario = executarSQL($mysql, "SELECT COUNT(*) FROM usuario WHERE email = '$email'");
 $quantidade_usuario = mysqli_fetch_row($consulta_usuario)[0];
 
-if ($quantidade_usuario ==0) {
+if ($quantidade_usuario == 0) {
     
     echo "Este usuário não está cadastrado no sistema. <p><a href=\"index.php\">Voltar</a></p>";
 
