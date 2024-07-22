@@ -36,6 +36,9 @@ $pasta = "foto/";
     <title>Document</title>
 
     <style>
+        body{
+           background-image: linear-gradient(45deg, pink, cyan);
+        }
         .div2 {
             border-radius: 10px;
             position: absolute;
@@ -87,7 +90,7 @@ $pasta = "foto/";
         <h2><?php echo $_SESSION['usuario'][0]; ?></h2>
     </div>
 
-    <a class="a" href="">Configurações da foto de perfil.</a>
+    <a class="a" href="crud/trocarImg.php">Configurações da foto de perfil.</a>
 
     <form action="crud/alterarPerfil.php" method="post">
         <label for="nome">Seu nome:</label>

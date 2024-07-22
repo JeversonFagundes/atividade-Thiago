@@ -40,6 +40,7 @@ if ($userEmail['email'] == $email) {
         echo "O email já existe no sistema!";
 
         die();
+        
     } else {
 
         $sql2 = "UPDATE usuario SET nome = '$nome', email = '$email' WHERE id_usuario = " . $_SESSION['usuario'][1];

@@ -24,6 +24,7 @@ if ($quantidade_usuario == 0) {
     executarSQL($mysql, $sql);
 
     header("location:../index.php");
+    
 } else {
 
     echo "O email já existe no banco de dados!<p><a href = \"formcadUsuario\">Voltar</a></p>";
