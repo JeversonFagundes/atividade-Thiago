@@ -3,6 +3,15 @@
 //iniciar a session.
 session_start();
 
+session_regenerate_id(true);
+
+if (!isset($_SESSION['usuario'][1])) {
+   
+    header("location:../index.php");
+
+    die ();
+}
+
 //conectar no banco dados.
 require_once "../conecta.php";
 
@@ -90,7 +99,7 @@ $pasta = "../foto/";
 
         echo '<input type="file" name="foto">' . '<br><br>';
 
-        echo '<input type = "hidden" value = "'.$dados['foto_perfil'].'">';
+        echo '<input type = "hidden" value = "'.$dados['foto_perfil'].'" name="fotoPerfi">';
 
         echo '<input type = "submit" value = "Alterar foto de perfil">' . '<br><br>';
 

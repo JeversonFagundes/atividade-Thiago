@@ -8,13 +8,29 @@ $mysql = conectar();
 //iniciar a session.
 session_start();
 
+
+session_regenerate_id(true);
+
+if (!isset($_SESSION['usuario'][1])) {
+   
+    header("location:../index.php");
+
+    die ();
+}
+
 //receber a foto.
 $foto = $_FILES['foto'];
+
+if ($foto['size'] == 0) {
+
+    header("location: trocarImg.php");
+    
+}
 
 //verificar se deu erro no recebimento do arquivo.
 if ($foto['error'] != 0) {
 
-    die("Falha ao receber a foto de peril! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
+    die("Falha ao receber a foto de perfil! <p><a href = \"trocarImg.php\">Tentar de novo?</a></p>");
 } else {
 
     //pasta de destino.
@@ -43,7 +59,7 @@ if ($foto['error'] != 0) {
     } else {
 
         //mover o arquivo.
-        $mover_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino. $novo_nome_foto . "." . $extencao);
+        $mover_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_foto . "." . $extencao);
 
         //verificar se deu certo mover certificado.
         if ($mover_foto) {
@@ -54,9 +70,18 @@ if ($foto['error'] != 0) {
             //inserir no banco de dados.
             $sql = "UPDATE usuario SET foto_perfil = '$caminho' WHERE id_usuario = " . $_SESSION['usuario'][1];
 
+
             $query = mysqli_query($mysql, $sql);
 
-            echo "O arquivo " . "|" . $nome_foto . "|" . " " . "foi cadastrado com sucesso!";
+            if (isset($_POST['fotoPerfi'])) {
+
+                unlink($pastaDestino . $_POST['fotoPerfi']);
+
+                header("location: trocarImg.php");
+            } else {
+
+                header("location: trocarImg.php");
+            }
         }
     }
 }
