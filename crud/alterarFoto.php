@@ -55,7 +55,7 @@ if ($foto['error'] != 0) {
 
     ) {
 
-        echo "Este tipo de arquivos" . " " . "|" . "." . $extencao . "|" . " " . "não é aceito <p><a href = \"formcadEntrega.php\">Voltar</a></p>";
+        echo "Este tipo de arquivos" . " " . "|" . "." . $extencao . "|" . " " . "não é aceito <p><a href = \"trocarImg.php\">Voltar</a></p>";
     } else {
 
         //mover o arquivo.
