@@ -36,9 +36,6 @@ $pasta = "foto/";
     <title>Document</title>
 
     <style>
-        body{
-           background-image: linear-gradient(45deg, pink, cyan);
-        }
         .div2 {
             border-radius: 10px;
             position: absolute;
