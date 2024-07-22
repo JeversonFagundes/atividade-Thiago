@@ -14,7 +14,7 @@ $recup = mysqli_fetch_assoc($result);
 
 if ($result == null){
     echo "Email ou token incorretos. Tente fazer um novo pedido
-    de recuperação de senha.";
+    de recuperação de senha. <a href='form-rec-senha.php'>Volte para recuperação de senha</a>";
     die();
 } else {
 
@@ -29,19 +29,21 @@ if ($result == null){
 
     if ($data > $dataExpiracao) {
         echo "Essa solicitação de recuperação de senha expirou!
-        Faça um novo pedido de recuperação de senha.";
+        Faça um novo pedido de recuperação de senha.
+        <a href='form-rec-senha.php'>Volte para recuperação de senha</a>";
         die();
     }
 
     if($recup['usado'] == 1){
         echo "Esse pedido de recuperação ja foi utilizado!
-        Para recuperar a conta faça um novo pedido";
+        Para recuperar a conta faça um novo pedido
+        <a href='form-rec-senha.php'>Volte para recuperação de senha</a>";
         die();
     }
 
     if($senha != $repetirsenha){
         echo "A senha que você digitou é diferente de senha
-        que você digitou no repetir senha. Por favor tente novamente";
+        que você digitou no repetir senha. Por favor tente novamente. <a href='nova-senha.php'>Volte para a pagina anterior</a>";
     }
 
     $sql2 = "UPDATE usuario SET senha='$senha' WHERE

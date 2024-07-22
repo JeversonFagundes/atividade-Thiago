@@ -14,7 +14,7 @@ $usuario = mysqli_fetch_assoc($result);
 
 if ($usuario == null) {
     echo "Email não cadastrado! Faça o cadastro e 
-          em seguida realize o login.";
+          em seguida realize o login. <a href='../index.php'>Volte para a tela inicial</a>";
     die();
 }
 
@@ -33,7 +33,7 @@ try {
     $mail->Encoding = 'base64';
     $mail->setLanguage('br');
     //$mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens de erro
-    //$mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens de erro
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens de erro
     $mail->isSMTP();                       //envia o email usando SMTP
     $mail->Host = 'smtp.gmail.com';       
     $mail->SMTPAuth = true;               
@@ -75,6 +75,7 @@ try {
     date_default_timezone_set('America/Sao_Paulo');
     $data = new DateTime('now');
     $agora = $data->format('Y-m-d H:i:s');
+
 
     $sql2 = "INSERT INTO `recuperar-senha`
             (email, token, data_criacao, usado) 

@@ -12,7 +12,7 @@ $recup = mysqli_fetch_assoc($result);
 
 if($recup == null){
     echo "Email ou token incorretos. Tente fazer outro pedido
-    de recuperação de senha.";
+    de recuperação de senha. <a href='form-rec-senha.php'>Volte para a pagina de recuperação de senha</a>";
     die();
 } else {
     date_default_timezone_set('America/Sao_Paulo');
@@ -25,7 +25,7 @@ if($recup == null){
 
     if($data > $dataexpiracao){
         echo "Essa solicitação expirou!
-        Realize um novo pedido de recuperação de senha.";
+        Realize um novo pedido de recuperação de senha. <a href='form-rec-senha.php'>Volte para a pagina de recuperação de senha</a>";
         die();
     }
 }
