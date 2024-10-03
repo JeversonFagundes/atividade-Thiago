@@ -1,7 +1,7 @@
 <?php
 
 //conectar no banco de dados.
-require_once "../conecta.php";
+require_once "./conecta.php";
 
 $mysql = conectar();
 

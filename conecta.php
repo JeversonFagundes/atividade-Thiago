@@ -15,9 +15,9 @@ function conectar()
     $mysqli = mysqli_connect(
 
         $config['host'],
-        $config['user'], 
+        $config['username'], 
         $config['password'], 
-        $config['banco'],
+        $config['bd'],
     
     );
 

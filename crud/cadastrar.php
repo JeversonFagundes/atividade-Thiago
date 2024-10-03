@@ -28,4 +28,5 @@ if ($quantidade_usuario == 0) {
 } else {
 
     echo "O email já existe no banco de dados!<p><a href = \"formcadUsuario\">Voltar</a></p>";
+
 }
