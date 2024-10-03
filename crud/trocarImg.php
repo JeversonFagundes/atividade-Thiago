@@ -90,7 +90,7 @@ $pasta = "../foto/";
         echo '<button><a href = "removerFoto.php?nome='.$dados['foto_perfil'].'     ">Remover foto de perfil</a></button>';
 
         echo '</form>';
-
+        
     }else {
         
         echo '<form class="form" enctype="multipart/form-data" action = "alterarFoto.php" method = "post" >';
